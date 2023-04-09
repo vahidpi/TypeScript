@@ -1,18 +1,17 @@
 import { MongoClient } from "mongodb";
+import { secrets } from './secrets';
 import { config } from 'dotenv';
 
-const dbName = process.env.DB_NAME;
-const collectionName = process.env.DB_COLLECTION;
+// import environment variables 
+config();
+const clusterUrl = process.env.DB_CLUSTER_URL;
 
-//const uri = "mongodb+srv://<username>:<password>@<cluster-url>/test?retryWrites=true&w=majority"; 
-const uri = "---"; 
-
+const uri = "mongodb+srv://" + secrets.dbUserName + ":" + secrets.dbPassword + "@" + clusterUrl + "/test";
 const client = new MongoClient(uri);
 
 async function connect() {
   try {
     await client.connect();
-    console.log("Connected to MongoDB Atlas");
   } catch (err) {
     console.error(err);
   }
@@ -21,10 +20,9 @@ async function connect() {
 async function disconnect() {
   try {
     await client.close();
-    console.log("Disconnected from MongoDB Atlas");
   } catch (err) {
     console.error(err);
   }
 }
 
-export { connect, disconnect ,uri};
+export { connect, disconnect, client };

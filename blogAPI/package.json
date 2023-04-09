@@ -4,7 +4,7 @@
   "description": "Create a simple REST API using TypeScript and Express that allows users to create, read, update, and delete blog posts. Each blog post should have a title, content, and author. Use a MongoDB database to store the blog posts. Implement authentication using JWT tokens and allow only authenticated users to create, update, and delete blog posts. Write unit tests to ensure that each API endpoint is working as expected.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",

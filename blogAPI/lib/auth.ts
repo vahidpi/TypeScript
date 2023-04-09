@@ -1,8 +1,8 @@
 import * as jwt from 'express-jwt';
+import { secrets } from './secrets';
 
-// TODO add secret key in env. variables file
 const authMiddleware = jwt.expressjwt({
-  secret: '---',
+  secret: secrets.authSecret,
   algorithms: ['HS256']
 });
 
