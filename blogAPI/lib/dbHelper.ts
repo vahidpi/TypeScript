@@ -1,6 +1,7 @@
 import { connect, disconnect, client } from "./db";
 import { ObjectId } from "mongodb";
-import * as express from 'express';
+//import * as express from 'express';
+import express from 'express';
 import { Post } from "./models";
 import { config } from 'dotenv';
 

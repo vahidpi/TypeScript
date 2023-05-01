@@ -109,4 +109,4 @@ function loginHandler(req: Request, res: Response) {
     }
 }
 
-export { createPostHandler, deletePostHandler, updatePostHandler, getPostListHandler, getPostByIdHandler, loginHandler };
+export { createPostHandler, deletePostHandler, updatePostHandler, getPostListHandler, getPostByIdHandler, loginHandler, validatePost, ValidationResult };

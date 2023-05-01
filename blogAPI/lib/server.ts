@@ -1,4 +1,5 @@
-import * as express from 'express';
+//import * as express from 'express';
+import express from 'express';
 import { Request, Response } from 'express';
 import authMiddleware from './auth';
 import { createPostHandler, deletePostHandler, updatePostHandler, loginHandler, getPostListHandler, getPostByIdHandler } from './serverHelper';

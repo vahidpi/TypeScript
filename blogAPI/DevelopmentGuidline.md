@@ -90,6 +90,8 @@ Unit testing:
 ====
 Install jest:
     npm install --save-dev jest
+    jest --init
+    # https://jestjs.io/docs/getting-started
 
 
 
