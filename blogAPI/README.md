@@ -5,6 +5,5 @@ This app contains the Apis which are needed for running a blog such as creating 
 
 
 
-for run:
-.env
-secrets.ts
+# Run:
+To run the project you need to have the .env file and secrets.ts.
