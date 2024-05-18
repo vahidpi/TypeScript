@@ -65,7 +65,7 @@ backend
       └─── server.js        #HTTP server that listens to server port
 └─── .gitignore             #git ignore file
 └─── package-lock.json      #npm automatically generated document
-└─── package.json           #holds metadata and npm packagage list
+└─── package.json           #holds metadata and npm package list
 └─── tsconfig.json          #specify the root level files and the compiler options
 
 Create a src folder: This folder will contain all the source code for your application. All other folders will be inside this folder.
@@ -92,7 +92,7 @@ Install jest:
     npm install --save-dev jest
     jest --init
     # https://jestjs.io/docs/getting-started
-
+    https://blog.logrocket.com/testing-typescript-apps-using-jest/
 
 
 Env.

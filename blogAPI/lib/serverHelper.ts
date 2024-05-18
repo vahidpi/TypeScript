@@ -32,18 +32,12 @@ async function createPostHandler(req: Request, res: Response): Promise<void> {
     const post = req.body as Post;
     const validationResult = validatePost(post);
     if (validationResult.success) {
-        try {
-            const result = await insertPost(post);
-            if (result) {
-                res.status(200).send('OK');
-            } else {
-                res.status(500);
-            }
-        } catch (err) {
-            console.error(err);
+        const result = await insertPost(post);
+        if (result) {
+            res.status(200).send('OK');
+        } else {
             res.status(500);
         }
-
     } else {
         res.status(400).send({ error: validationResult.message });
     }
