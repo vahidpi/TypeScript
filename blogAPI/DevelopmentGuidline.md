@@ -3,36 +3,36 @@ Create a simple REST API using TypeScript and Express that allows users to creat
 
 
 
-init the project:
-Install Node.js and TypeScript
-    npm install -g typescript
-Create a new project
-    npm init
-Install Express and other required packages
-    npm install express body-parser cors
+## init the project:
+- Install Node.js and TypeScript
+    - npm install -g typescript
+- Create a new project
+    - npm init
+- Install Express and other required packages
+    - npm install express body-parser cors
 
     express is the web framework for Node.js that we'll use to create the API.
     body-parser is a middleware that allows us to parse incoming request bodies in a middleware before the handlers.
     cors is a middleware that allows cross-origin resource sharing.
-Write your code
-    server.ts
-Compile the TypeScript code
-    tsc
-Run the server
-    node server.js
+- Write your code
+    - server.ts
+- Compile the TypeScript code
+    - tsc
+- Run the server
+    - node server.js
 
-Install Mongodb dependencies 
-    https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
-    npm install express mongoose @types/express @types/mongoose
-MongoDB via Docker 
-    docker pull mongo:latest
-    docker run --name my-mongo -p 27017:27017 -d mongo
+- Install Mongodb dependencies 
+    - https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
+    - npm install express mongoose @types/express @types/mongoose
+- MongoDB via Docker 
+    - docker pull mongo:latest
+    - docker run --name my-mongo -p 27017:27017 -d mongo
 
-Install swagger
-    npm install swagger-ui-express swagger-jsdoc
-Install JWT
-     npm install jsonwebtoken express-jwt
-    To call:
+- Install swagger
+    - npm install swagger-ui-express swagger-jsdoc
+- Install JWT
+    - npm install jsonwebtoken express-jwt
+    - To call:
         after /login and having correct token
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -41,17 +41,13 @@ Install JWT
 
 
 
-curl  http://localhost:3000/
-curl -X POST http://localhost:3000/api 
+- curl  http://localhost:3000/
+- curl -X POST http://localhost:3000/api 
 
 
 
-
-
-
-
-Project structure:
-
+## Project structure:
+```
 backend
 │
 └─── dist                   #all the javascript files are here
@@ -67,6 +63,7 @@ backend
 └─── package-lock.json      #npm automatically generated document
 └─── package.json           #holds metadata and npm package list
 └─── tsconfig.json          #specify the root level files and the compiler options
+```
 
 Create a src folder: This folder will contain all the source code for your application. All other folders will be inside this folder.
 
@@ -86,16 +83,17 @@ Create a dist folder: This folder will contain the compiled TypeScript code that
 
 
 
-Unit testing:
-====
+## Unit testing:
 Install jest:
+```
     npm install --save-dev jest
     jest --init
     # https://jestjs.io/docs/getting-started
     https://blog.logrocket.com/testing-typescript-apps-using-jest/
+```
 
-
-Env.
-===
+## .env
+```
     .env
     npm install dotenv
+```
