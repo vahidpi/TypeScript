@@ -92,7 +92,7 @@ function loginHandler(req: Request, res: Response) {
     const { username, password } = req.body;
     // Verify user credentials
     // TODO read user pass from db
-    if (username === secrets.blogTestUser && password === secrets.blogTestPassword) {
+    if (username === secrets.username && password === secrets.password) {
         // Generate JWT token
         const token = jwt.sign({ username }, secrets.authSecret, {
             expiresIn: '1h'

@@ -8,7 +8,6 @@ const clusterUrl = process.env.DB_CLUSTER_URL;
 
 const uri = "mongodb+srv://" + secrets.dbUserName + ":" + secrets.dbPassword + "@" + clusterUrl + "/test";
 const client = new MongoClient(uri);
-
 async function connect() {
   try {
     await client.connect();

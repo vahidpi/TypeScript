@@ -51,5 +51,5 @@ app.delete('/api/doc/:id', authMiddleware, deletePostHandler);
 app.put('/api/doc/:id', authMiddleware, updatePostHandler);
 
 app.listen(3000, () => {
-    console.log('Server started on port 3000');
+    console.log('Blog API started on started at http://localhost:3000');
 });

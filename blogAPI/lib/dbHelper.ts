@@ -51,7 +51,7 @@ async function getPostList() {
         const collection = db.collection(collectionName);
         const postsList = await collection.find({}).toArray();
         if (!postsList || postsList.length === 0) { // check if post is null or undefined
-            console.log("Post list is null")
+            console.log("Post list is null");
             return null;
         }
         return postsList;
