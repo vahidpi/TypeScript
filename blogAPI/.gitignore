@@ -21,6 +21,7 @@ coverage
 
 # API keys and secrets
 .env
+sercrets.ts
 
 # Dependency directory
 bower_components

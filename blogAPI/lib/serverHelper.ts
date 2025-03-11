@@ -9,37 +9,29 @@ interface ValidationResult {
     message?: string;
 }
 
-function validatePost(post: Post): ValidationResult {
-    const result: ValidationResult = { success: true };
-
-    if (!post.content) {
-        result.success = false;
-        result.message = "Post content is required.";
+function validatePost(post: any): ValidationResult {
+    if (!post.title || !post.content || !post.author) {
+        return {
+            success: false,
+            message: 'Missing required fields: title, content, and author are required'
+        };
     }
-    if (!post.title) {
-        result.success = false;
-        result.message = "Post title is required.";
-    }
-    if (!post.author) {
-        result.success = false;
-        result.message = "Author name is required.";
-    }
-    return result;
+    return { success: true };
 }
 
-// TODO validate the JSON format of request body
-async function createPostHandler(req: Request, res: Response): Promise<void> {
-    const post = req.body as Post;
+async function createPostHandler(req: Request, res: Response) {
+    const post = req.body;
     const validationResult = validatePost(post);
+
     if (validationResult.success) {
         const result = await insertPost(post);
         if (result) {
-            res.status(200).send('OK');
+            res.status(201).json({ message: 'Post created successfully' });
         } else {
-            res.status(500);
+            res.status(500).json({ error: 'Failed to create post' });
         }
     } else {
-        res.status(400).send({ error: validationResult.message });
+        res.status(400).json({ error: validationResult.message });
     }
 }
 
@@ -92,9 +84,9 @@ function loginHandler(req: Request, res: Response) {
     const { username, password } = req.body;
     // Verify user credentials
     // TODO read user pass from db
-    if (username === secrets.username && password === secrets.password) {
+    if (username === secrets.dbUserName && password === secrets.dbPassword) {
         // Generate JWT token
-        const token = jwt.sign({ username }, secrets.authSecret, {
+        const token = jwt.sign({ username }, secrets.jwtSecret, {
             expiresIn: '1h'
         });
         res.json({ token });

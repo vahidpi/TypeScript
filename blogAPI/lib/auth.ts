@@ -2,7 +2,7 @@ import * as jwt from 'express-jwt';
 import { secrets } from './secrets';
 
 const authMiddleware = jwt.expressjwt({
-  secret: secrets.authSecret,
+  secret: secrets.jwtSecret,
   algorithms: ['HS256']
 });
 

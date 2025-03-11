@@ -1,4 +1,3 @@
-
 import { ValidationResult, createPostHandler } from '../lib/serverHelper';
 import * as dbHelper from '../lib/dbHelper';
 import { Request, Response } from 'express';
@@ -9,41 +8,82 @@ import { Request, Response } from 'express';
 // const mockInsertPost = dbHelper.insertPost as jest.MockedFunction<typeof dbHelper.insertPost>
 // const mockValidatePost = validatePost as jest.MockedFunction<typeof validatePost>
 
+jest.mock('../lib/dbHelper');
 
-describe('createPostHandler', () => {
-  var res: Response;
-  const mockReq = {
-    body: {
-      title: 'Test post',
-      content: 'This is a test post',
-      author: 'John',
-    },
-  };
+describe('Server Helper Tests', () => {
+    let mockRequest: Partial<Request>;
+    let mockResponse: Partial<Response>;
+    let mockJson: jest.Mock;
+    let mockStatus: jest.Mock;
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-
-
-  it('should send OK when post is successfully inserted', async () => {
-    const post = {
-      title: 'Test Post',
-      content: 'This is a test post.',
-      author: 'John',
-    };
-    const validatePost = jest.fn().mockReturnValue({
-      success: true,
+    beforeEach(() => {
+        mockJson = jest.fn();
+        mockStatus = jest.fn().mockReturnValue({ json: mockJson });
+        mockResponse = {
+            status: mockStatus,
+            json: mockJson
+        };
+        jest.clearAllMocks();
     });
-    const insertPost = jest.fn().mockResolvedValue(true);
 
+    describe('createPostHandler', () => {
+        it('should create a post successfully', async () => {
+            const testPost = {
+                title: 'Test Post',
+                content: 'Test Content',
+                author: 'Test Author'
+            };
 
-    await createPostHandler({ body: post } as Request, res);
+            mockRequest = {
+                body: testPost
+            };
 
-    //expect(validatePostMock).toHaveBeenCalledWith(post);
-    expect(insertPost).toHaveBeenCalled();
-    // expect(res.status).toHaveBeenCalledWith(200);
-    // expect(res.send).toHaveBeenCalledWith('OK');
-  });
+            jest.spyOn(dbHelper, 'insertPost').mockResolvedValueOnce(true);
 
+            await createPostHandler(mockRequest as Request, mockResponse as Response);
+
+            expect(dbHelper.insertPost).toHaveBeenCalledWith(testPost);
+            expect(mockStatus).toHaveBeenCalledWith(201);
+            expect(mockJson).toHaveBeenCalledWith({ message: 'Post created successfully' });
+        });
+
+        it('should handle missing required fields', async () => {
+            mockRequest = {
+                body: {
+                    title: 'Test Post',
+                    // missing content and author
+                }
+            };
+
+            await createPostHandler(mockRequest as Request, mockResponse as Response);
+
+            expect(dbHelper.insertPost).not.toHaveBeenCalled();
+            expect(mockStatus).toHaveBeenCalledWith(400);
+            expect(mockJson).toHaveBeenCalledWith({ 
+                error: expect.stringContaining('Missing required fields') 
+            });
+        });
+
+        it('should handle database errors', async () => {
+            const testPost = {
+                title: 'Test Post',
+                content: 'Test Content',
+                author: 'Test Author'
+            };
+
+            mockRequest = {
+                body: testPost
+            };
+
+            jest.spyOn(dbHelper, 'insertPost').mockResolvedValueOnce(false);
+
+            await createPostHandler(mockRequest as Request, mockResponse as Response);
+
+            expect(dbHelper.insertPost).toHaveBeenCalledWith(testPost);
+            expect(mockStatus).toHaveBeenCalledWith(500);
+            expect(mockJson).toHaveBeenCalledWith({ 
+                error: expect.stringContaining('Failed to create post') 
+            });
+        });
+    });
 });

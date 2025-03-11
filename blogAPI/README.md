@@ -66,3 +66,15 @@ You should see a message that the application has started:
 ## Database
 The database is build by mongodb, and contains some collection.
 To view and control the collections better to use Mongosh UI, the online cloud vaersion can be reatch here (https://cloud.mongodb.com/)
+
+
+
+
+
+
+
+npm install swagger-ui-express swagger-jsdoc @types/swagger-ui-express @types/swagger-jsdoc
+
+
+Test:
+    npm test
